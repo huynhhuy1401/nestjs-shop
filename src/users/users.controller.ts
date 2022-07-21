@@ -1,4 +1,5 @@
 import { Controller, Post } from '@nestjs/common';
+import { Role } from 'src/enums/role.enum';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -8,7 +9,7 @@ export class UsersController {
   async seedAdmin() {
     this.userService.create({
       name: 'Huy',
-      isAdmin: true,
+      roles: [Role.Admin],
       username: 'huyduong',
       password: 'huy123',
     });
