@@ -1,17 +1,16 @@
-import { Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { Role } from 'src/enums/role.enum';
+import { CreateUserDto } from './dtos/create-user.dto';
 import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
-  @Post('/seed-admin')
-  async seedAdmin() {
+  @Post()
+  async create(@Body() createUserDto: Omit<CreateUserDto, 'roles'>) {
     this.userService.create({
-      name: 'Huy',
-      roles: [Role.Admin],
-      username: 'huyduong',
-      password: 'huy123',
+      roles: [Role.User],
+      ...createUserDto,
     });
   }
 }
